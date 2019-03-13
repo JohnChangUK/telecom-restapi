@@ -31,25 +31,25 @@ public class TelecomService {
         return allPhoneNumbers;
     }
 
-    public List<PhoneNumber> getSingleCustomerPhoneNumbers(String customerId) throws CustomerDoesNotExistException {
+    public List<PhoneNumber> getSingleCustomerPhoneNumbers(String id) throws CustomerDoesNotExistException {
         for (Customer customer : customerPhoneMapping.keySet()) {
-            if (customer.getId().equals(customerId)) {
+            if (customer.getId().equals(id)) {
                 return customerPhoneMapping.get(customer);
             }
         }
 
-        throw new CustomerDoesNotExistException("Customer does not exist");
+        throw new CustomerDoesNotExistException("Customer does not exist, please create an account with phone number first");
     }
 
-    public List<PhoneNumber> addPhoneNumberToCustomer(String customerId, String phoneNumber) {
+    public List<PhoneNumber> addPhoneNumberToCustomer(String id, String phoneNumber) {
         PhoneNumber newPhoneNumber = createPhoneNumber(phoneNumber);
 
         Optional<Customer> customerAccount = customerPhoneMapping.keySet().stream()
-                .filter(x -> x.getId().equals(customerId))
+                .filter(x -> x.getId().equals(id))
                 .findFirst();
 
         if (!customerAccount.isPresent()) {
-            Customer newCustomer = createCustomer(customerId);
+            Customer newCustomer = createCustomer(id);
             customerPhoneMapping.put(newCustomer, Collections.singletonList(newPhoneNumber));
 
             return customerPhoneMapping.get(newCustomer);
@@ -59,9 +59,9 @@ public class TelecomService {
         return customerPhoneMapping.get(customerAccount.get());
     }
 
-    private Customer createCustomer(String customerId) {
+    private Customer createCustomer(String id) {
         return new Customer.Builder()
-                        .withId(customerId)
+                        .withId(id)
                         .build();
     }
 
