@@ -22,8 +22,8 @@ public class TelecomService {
     private Map<Customer, List<PhoneNumber>> customerPhoneMapping;
 
     @Autowired
-    public TelecomService(Map<Customer, List<PhoneNumber>> customerPhoneMapping) {
-        this.customerPhoneMapping = customerPhoneMapping;
+    public TelecomService() {
+        this.customerPhoneMapping = new HashMap<>();
         populateCustomerPhoneMap(customerPhoneMapping);
     }
 
@@ -51,7 +51,7 @@ public class TelecomService {
         if (customer.isPresent()) {
             customerPhoneNumber = customerPhoneMapping.get(customer.get())
                     .stream()
-                    .filter(x -> x.getPhoneNumber().equals(phoneNumber))
+                    .filter(phone -> phoneNumber.equals(phone.getPhoneNumber()))
                     .findFirst();
 
             customerPhoneNumber.ifPresent(number -> number.setActivated(true));
@@ -80,7 +80,7 @@ public class TelecomService {
             }};
         }
 
-        customer.ifPresent(x -> customerPhoneMapping.get(customer.get()).add(newPhoneNumber));
+        customerPhoneMapping.get(customer.get()).add(newPhoneNumber);
 
         return new HashMap<String, List<PhoneNumber>>() {{
             put(customer.get().getId(), customerPhoneMapping.get(customer.get()));
@@ -93,5 +93,4 @@ public class TelecomService {
                 .filter(customer -> customer.getId().equals(id))
                 .findFirst();
     }
-
 }
