@@ -48,7 +48,7 @@ public class TelecomControllerTest {
 
     @Test
     public void testGetSingleCustomerPhoneNumbers() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/customer/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/customer/1/phoneNumbers"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         verify(mockTelecomService).getSingleCustomerPhoneNumbers("1");
@@ -61,7 +61,7 @@ public class TelecomControllerTest {
 
     @Test
     public void testGettingAllPhoneNumbersInDataBase() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.get("/phoneNumbers"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/customers/phoneNumbers"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
 
         verify(mockTelecomService).getAllPhoneNumbers();

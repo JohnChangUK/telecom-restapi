@@ -39,7 +39,7 @@ public class TelecomController {
     /**
      * REST Endpoint returns all existing phone numbers in the database
      */
-    @GetMapping(value = "/phoneNumbers", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/customers/phoneNumbers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PhoneNumber>> getAllPhoneNumbers() {
         return new ResponseEntity<>(telecomService.getAllPhoneNumbers(), HttpStatus.OK);
     }
@@ -48,7 +48,7 @@ public class TelecomController {
      * REST Endpoint returns all existing phone numbers corresponding to the Customer
      * @param id Customer ID
      */
-    @GetMapping(value = "/customer/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/customer/{id}/phoneNumbers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PhoneNumber>> getCustomerPhoneNumbers(
             @PathVariable(value = "id") String id) {
 

@@ -6,17 +6,17 @@
 ## Implemented Endpoints
 
 ```$xslt
-Method: GET     /phoneNumbers                                   "Gets all existing phone numbers"
-Method: GET     /customer/{id}                                  "Gets all the phone numbers of a single customer"
+Method: GET     /customers/phoneNumbers                         "Gets all existing phone numbers"
+Method: GET     /customer/{id}/phoneNumbers                     "Gets all the phone numbers of a single customer"
 Method: PUT     /customer/{id}?phoneNumber=0111                 "Activates the customer's provided phone number"
-Method: POST    /customer/{id}?phonenumber=0777                 "Adds the given phone number to the customer's account.
-                                                                 If customer does not have an account, the API creates a                                                                      customer account with the provided ID"
-```                                                
+Method: POST    /customer/{id}?phonenumber=0777                 "Adds the given phone number to the customer's account"
+                                                               "If customer does not have an account, the API creates a customer account with the provided ID"
+```                                                                
                                                 
 ## Usage of API
 ### Get all phone numbers
 
-- When retrieving all existing phone numbers, make a GET request to the endpoint `localhost:8080/phoneNumbers`
+- When retrieving all existing phone numbers, make a GET request to the endpoint `localhost:8080/customers/phoneNumbers`
 - Payload is a List of Phone Numbers
 ```
 [
@@ -45,7 +45,7 @@ Method: POST    /customer/{id}?phonenumber=0777                 "Adds the given 
 
 ### Get all phone numbers belonging to a customer
 
-- Perform a GET request to the endpoint `localhost:8080/customer{id}`
+- Perform a GET request to the endpoint `localhost:8080/customer{id}/phoneNumbers`
 - Below are the phone numbers beloning to customer with ID '1'
 ```
 [
