@@ -6,12 +6,11 @@
 ## Implemented Endpoints
 
 ```$xslt
-Method: GET     /phoneNumbers                  "Gets all existing phone numbers"
-Method: GET     /customer/{id}                 "Gets all the phone numbers of a single customer"
-Method: PUT     /customer/{id}                 "Activates the customer's provided phone number"
-Method: POST    /customer/{id}                 "Adds the given phone number to the customer's account"
-                                               "If customer does not have an account, the API creates a customer account
-                                                with the provided ID"
+Method: GET     /phoneNumbers                                   "Gets all existing phone numbers"
+Method: GET     /customer/{id}                                  "Gets all the phone numbers of a single customer"
+Method: PUT     /customer/{id}?phoneNumber=0111                 "Activates the customer's provided phone number"
+Method: POST    /customer/{id}?phonenumber=0777                 "Adds the given phone number to the customer's account.
+                                                                 If customer does not have an account, the API creates a                                                                      customer account with the provided ID"
 ```                                                
                                                 
 ## Usage of API
