@@ -1,4 +1,4 @@
-package model;
+package telecom.model;
 
 import java.util.Objects;
 

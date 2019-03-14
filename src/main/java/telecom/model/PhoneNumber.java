@@ -1,4 +1,4 @@
-package model;
+package telecom.model;
 
 import java.util.Objects;
 
@@ -18,6 +18,10 @@ public class PhoneNumber {
 
     public boolean isActivated() {
         return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
     }
 
     public static class Builder {
