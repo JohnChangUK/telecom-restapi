@@ -35,11 +35,6 @@ public class TelecomController {
         this.telecomService = telecomService;
     }
 
-    @GetMapping
-    public ResponseEntity<String> returnSTring() {
-        return new ResponseEntity<>("OK", HttpStatus.OK);
-    }
-
     @GetMapping(value = "/phoneNumbers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PhoneNumber>> getAllPhoneNumbers() {
         return new ResponseEntity<>(telecomService.getAllPhoneNumbers(), HttpStatus.OK);

@@ -40,8 +40,7 @@ public class TelecomService {
             }
         }
 
-        throw new CustomerDoesNotExistException(
-                "Customer does not exist, please create an account with phone number first");
+        throw new CustomerDoesNotExistException(CUSTOMER_DOES_NOT_EXIST);
     }
 
     public PhoneNumber activatePhoneNumber(String id, String phoneNumber) throws CustomerDoesNotExistException {
@@ -60,7 +59,7 @@ public class TelecomService {
         if (customerPhoneNumber.isPresent()) {
             return customerPhoneNumber.get();
         } else {
-            throw new CustomerDoesNotExistException("Customer does not exist");
+            throw new CustomerDoesNotExistException(CUSTOMER_DOES_NOT_EXIST);
         }
     }
 

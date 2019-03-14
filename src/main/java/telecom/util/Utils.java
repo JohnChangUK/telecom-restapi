@@ -10,6 +10,9 @@ import java.util.Map;
 
 public class Utils {
 
+    public static final String CUSTOMER_DOES_NOT_EXIST= "Customer does not exist, " +
+            "please create an account with phone number first";
+
     public static void populateCustomerPhoneMap(Map<Customer, List<PhoneNumber>> customerPhoneMapping) {
         customerPhoneMapping.put(createCustomer("1"), new ArrayList<>(Arrays.asList(createPhoneNumber("0777"))));
         customerPhoneMapping.put(createCustomer("1"), new ArrayList<>(Arrays.asList(createPhoneNumber("0888"))));
