@@ -19,6 +19,7 @@ import telecom.service.TelecomService;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import static telecom.util.Utils.createPhoneNumber;
 
@@ -35,11 +36,18 @@ public class TelecomController {
         this.telecomService = telecomService;
     }
 
+    /**
+     * REST Endpoint returns all existing phone numbers in the database
+     */
     @GetMapping(value = "/phoneNumbers", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PhoneNumber>> getAllPhoneNumbers() {
         return new ResponseEntity<>(telecomService.getAllPhoneNumbers(), HttpStatus.OK);
     }
 
+    /**
+     * REST Endpoint returns all existing phone numbers corresponding to the Customer
+     * @param id Customer ID
+     */
     @GetMapping(value = "/customer/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PhoneNumber>> getCustomerPhoneNumbers(
             @PathVariable(value = "id") String id) {
@@ -54,6 +62,11 @@ public class TelecomController {
         return new ResponseEntity<>(Collections.emptyList(), HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * REST Endpoint activates the customer's provided phone number
+     * @param id Customer ID
+     * @param phoneNumber Customer Phone Number
+     */
     @PutMapping(value = "/customer/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PhoneNumber> activatePhoneNumber(
             @PathVariable(value = "id") String id,
@@ -69,8 +82,15 @@ public class TelecomController {
         return new ResponseEntity<>(createPhoneNumber(phoneNumber), HttpStatus.BAD_REQUEST);
     }
 
+    /**
+     * REST Endpoint adds phone numbers to the customer's account
+     * If customer does not have an account, the API creates a customer account
+     * with the provided ID
+     * @param id Customer ID
+     * @param phoneNumber Phone number to add
+     */
     @PostMapping(value = "/customer/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<PhoneNumber>> addCustomerPhoneNumber(
+    public ResponseEntity<Map<String, List<PhoneNumber>>> addCustomerPhoneNumber(
             @PathVariable(value = "id") String id,
             @RequestParam(value = "phoneNumber") String phoneNumber) {
 

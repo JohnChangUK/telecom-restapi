@@ -8,6 +8,7 @@ import telecom.model.PhoneNumber;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -63,7 +64,7 @@ public class TelecomService {
         }
     }
 
-    public List<PhoneNumber> addPhoneNumberToCustomer(String id, String phoneNumber) {
+    public Map<String, List<PhoneNumber>> addPhoneNumberToCustomer(String id, String phoneNumber) {
         PhoneNumber newPhoneNumber = createPhoneNumber(phoneNumber);
         Optional<Customer> customer = getCustomer(id);
 
@@ -74,11 +75,16 @@ public class TelecomService {
             phoneNumberList.add(newPhoneNumber);
             customerPhoneMapping.put(newCustomer, phoneNumberList);
 
-            return customerPhoneMapping.get(newCustomer);
+            return new HashMap<String, List<PhoneNumber>>() {{
+                put(newCustomer.getId(), customerPhoneMapping.get(newCustomer));
+            }};
         }
 
         customer.ifPresent(x -> customerPhoneMapping.get(customer.get()).add(newPhoneNumber));
-        return customerPhoneMapping.get(customer.get());
+
+        return new HashMap<String, List<PhoneNumber>>() {{
+            put(customer.get().getId(), customerPhoneMapping.get(customer.get()));
+        }};
     }
 
     private Optional<Customer> getCustomer(String id) {
