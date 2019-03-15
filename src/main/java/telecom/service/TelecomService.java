@@ -20,11 +20,25 @@ import static telecom.util.Utils.*;
 public class TelecomService {
 
     private Map<Customer, List<PhoneNumber>> customerPhoneMapping;
+    // Another option to store Customer phone numbers
+    private Map<String, Customer> customerPhoneNumbers = new HashMap<>();
+    private List<PhoneNumber> allCustomerPhoneNumbers;
 
     @Autowired
     public TelecomService() {
         this.customerPhoneMapping = new HashMap<>();
         populateCustomerPhoneMap(customerPhoneMapping);
+        customerPhoneNumbers.put("11", new Customer.Builder().withId("11").build());
+        customerPhoneNumbers.put("22", new Customer.Builder().withId("22").build());
+        this.allCustomerPhoneNumbers = getCustomerNumbersViaInstanceVariable();
+    }
+
+    public List<PhoneNumber> getCustomerNumbersViaInstanceVariable() {
+        return customerPhoneNumbers.values()
+                .stream()
+                .flatMap(customer -> customer.getPhoneNumbers()
+                        .stream())
+                .collect(Collectors.toList());
     }
 
     public List<PhoneNumber> getAllPhoneNumbers() {

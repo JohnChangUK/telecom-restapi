@@ -1,15 +1,20 @@
 package telecom.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Customer {
 
     private String id;
     private String name;
+    private List<PhoneNumber> phoneNumbers = new ArrayList<>();
 
     public Customer(String id, String name) {
         this.id = id;
         this.name = name;
+        phoneNumbers.add(new PhoneNumber.Builder().withPhoneNumber("232").build());
+        phoneNumbers.add(new PhoneNumber.Builder().withPhoneNumber("232232").build());
     }
 
     public String getId() {
@@ -18,6 +23,10 @@ public class Customer {
 
     public String getName() {
         return name;
+    }
+
+    public List<PhoneNumber> getPhoneNumbers() {
+        return phoneNumbers;
     }
 
     public static class Builder {
